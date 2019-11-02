@@ -1,4 +1,4 @@
-import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK } from './types';
+import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS } from './types';
 
 const initialState = {
   tasks: [
@@ -15,6 +15,9 @@ const initialState = {
       done: true,
     },
   ],
+  sort_field: 'id', //(id | username | email | status) - поле, по которому выполняется сортировка
+  sort_direction: 'asc', //(asc | desc) - направление сортировки
+  page: 1, // номер страницы для пагинации
 };
 
 export default function(state = initialState, action) {
@@ -42,6 +45,14 @@ export default function(state = initialState, action) {
 
       return {
         tasks: tasks,
+      };
+    }
+
+    case GET_TASKS: {
+      return {
+        ...state,
+        tasks: action.loadedTasks,
+        totalTasksCount: action.totalTasksCount,
       };
     }
 
