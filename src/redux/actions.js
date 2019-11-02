@@ -20,42 +20,34 @@ const clearAllAC = () => {
   };
 };
 
-const getTasks = (sort_field, sort_direction, page) => async dispatch => {
+const getTasks = (sortField, sortDirection, pageN) => async dispatch => {
   try {
     console.log('-----------------------');
     console.log('trying FETCH - GET...');
-    console.log();
-    
+    console.log(`sortField: ${sortField}, sortDirection: ${sortDirection}, pageN: ${pageN}`);
+
     const response = await fetch(
-      'https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Petrucho?sort_field?sort_direction?page',
+      'https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Petrucho&sort_field=sortField&sort_direction=sortDirection&page=pageN',
       {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Cache: 'no-cache',
-          credentials: 'same-origin',
-          // Cookie: `connect.sid=${cookies}`,
-
-          // crossDomain: true,
-          //X-Permitted-Cross-Domain-Policies
-
-          // method: 'POST',
-          // mimeType: 'multipart/form-data',
-          // contentType: false,
-          // processData: false,
-          // data: form,
-          // dataType: 'json',
         },
       },
     );
     const myJson = await response.json();
     console.log('------------------');
     console.log(`myJson: ${myJson}`);
-    console.log(`Object.keys(myJson[0]): ${Object.keys(myJson[0])}\n`);
-    // Object.keys(myJson[0]): id,familyName,Todos
-    // console.log(`Object.keys(myJson[0].Todos): ${Object.keys(myJson[0].Todos)}`);
-    // console.log(`Object.keys(myJson[0].Todos[0]): ${Object.keys(myJson[0].Todos[0])}\n`);
+    console.log(`Object.keys(myJson): ${Object.keys(myJson)}\n`);
+    //Object.keys(myJson): status,message
+    console.log(`Object.keys(myJson.status): ${Object.keys(myJson.status)}`);
+    //Object.keys(myJson.status): 0,1
+    console.log(`Object.keys(myJson.message): ${Object.keys(myJson.message)}`);
+    //Object.keys(myJson.message): tasks,total_task_count
+    console.log(`myJson.message.tasks.length: ${myJson.message.tasks.length}`);
+    console.log(`Object.keys(myJson.message.tasks): ${Object.keys(myJson.message.tasks)}`);
+    console.log(`Object.keys(myJson.message.total_task_count): ${Object.keys(myJson.message.total_task_count)}`);
     const data = myJson;
     dispatch({
       type: GET_TASKS,

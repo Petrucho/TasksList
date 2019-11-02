@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class TaskClick extends Component {
   render() {
-    const {task, index} = this.props;
+    const { task, index } = this.props;
     return (
       <div className="Task" onClick={this.props.onClick}>
-        {index} - {task.title} {task.done && 'Дело сделано!'}
+        {index} - id:{task.id} username:{task.username} email:{task.email} text:{task.text} status:
+        {task.status}
       </div>
     );
   }

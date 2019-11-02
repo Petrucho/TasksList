@@ -8,6 +8,8 @@ class TasksListWithCheck extends Component {
   state = {};
 
   componentDidMount() {
+    console.log('------------------');
+    console.log(`componentDidMount\n`);
     this.tasksFetch();
   }
 
