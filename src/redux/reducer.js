@@ -25,9 +25,11 @@ const initialState = {
   //     status: 0,
   //   },
   // ],
-  sort_field: 'username', //(id | username | email | status) - поле, по которому выполняется сортировка
+  sort_field: 'id', //(id | username | email | status) - поле, по которому выполняется сортировка
   sort_direction: 'asc', //(asc | desc) - направление сортировки
   page: 1, // номер страницы для пагинации
+  currUser: 'admin',
+  currEmail: 'example@example.com',
 };
 
 export default function(state = initialState, action) {

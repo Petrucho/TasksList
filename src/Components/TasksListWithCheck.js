@@ -20,7 +20,12 @@ class TasksListWithCheck extends Component {
   // }
 
   async tasksFetch() {
-    const somePromise = await this.props.getTasks(this.props.sort_field, this.props.sort_direction, this.props.page);
+    const somePromise = await this.props.getTasks(
+      this.props.currUser,
+      this.props.sort_field,
+      this.props.sort_direction,
+      this.props.page,
+    );
   }
 
   onClick = () => {
@@ -45,6 +50,8 @@ function mapStateToProps(state) {
     sort_field: state.sort_field,
     sort_direction: state.sort_direction,
     page: state.page,
+    currUser: state.currUser,
+    currEmail: state.currEmail,
   };
 }
 
@@ -52,7 +59,8 @@ function mapDispatchToProps(dispatch) {
   return {
     toggleTask: index => dispatch(toggleTaskAC(index)),
     eraseList: () => dispatch(clearAllAC()),
-    getTasks: (sort_field, sort_direction, page) => dispatch(getTasks(sort_field, sort_direction, page)),
+    getTasks: (curUser, sort_field, sort_direction, page) =>
+      dispatch(getTasks(curUser, sort_field, sort_direction, page)),
   };
 }
 

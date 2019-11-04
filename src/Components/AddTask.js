@@ -16,7 +16,9 @@ class AddTask extends Component {
   };
 
   onSubmit = () => {
-    this.props.addTask(this.state.title);
+    console.log('------------------');
+    console.log(`onSubmit\n`);
+    this.props.addTask(this.props.currUser, this.props.currEmail, this.state.title);
     this.setState({ title: '' });
   };
 
@@ -24,20 +26,26 @@ class AddTask extends Component {
     return (
       <div className="AddTask">
         <input onChange={this.onChange} value={this.state.title} />
-        <button onClick={this.onSubmit}>Добавить задачу</button>
+        <button onClick={this.onSubmit}>Append task</button>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    currUser: state.currUser,
+    currEmail: state.currEmail,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    addTask: taskName => dispatch(addTaskAC(taskName)),
+    addTask: (curUser, curEmail, taskName) => dispatch(addTaskAC(curUser, curEmail, taskName)),
   };
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(AddTask);
