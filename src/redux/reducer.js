@@ -1,38 +1,21 @@
-import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS } from './types';
+import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS, CHANGE_PAGE } from './types';
 
 const initialState = {
   tasks: [],
-  // tasks: [
-  //   {
-  //     id: 1,
-  //     username: 'Test User',
-  //     email: 'test_user_1@example.com',
-  //     text: 'Hello, world!',
-  //     status: 10,
-  //   },
-  //   {
-  //     id: 3,
-  //     username: 'Test User 2',
-  //     email: 'test_user_2@example.com',
-  //     text: 'Hello from user 2!',
-  //     status: 0,
-  //   },
-  //   {
-  //     id: 4,
-  //     username: 'Test User 3',
-  //     email: 'test_user_3@example.com',
-  //     text: 'Hello from user 3!',
-  //     status: 0,
-  //   },
-  // ],
   sort_field: 'id', //(id | username | email | status) - поле, по которому выполняется сортировка
   sort_direction: 'asc', //(asc | desc) - направление сортировки
-  page: 1, // номер страницы для пагинации
+  currPage: 1, // номер страницы для пагинации
+  totalTasksCount: 0,
   currUser: 'admin',
   currEmail: 'example@example.com',
+  pagination: 3,
 };
 
 export default function(state = initialState, action) {
+  console.log(`----REDUCER----`);
+  console.log(`before SWITCH`);
+  console.log(`Object.keys(action): ${Object.keys(action)}`);
+  console.log(`action.type: ${action.type}`);
   switch (action.type) {
     case ADD_TASK: {
       return {
@@ -54,13 +37,19 @@ export default function(state = initialState, action) {
           el.done = !el.done;
         }
       });
-
+      console.log('-------REDUCER-------');
+      console.log('TOGGLE_TASK PAGE');
+      console.log(`action.index: ${action.index}\n`);
       return {
         tasks: tasks,
       };
     }
 
     case GET_TASKS: {
+      console.log('-------REDUCER-------');
+      console.log('GET_TASKS');
+      console.log(`action.loadedTasks: ${action.loadedTasks}\n`);
+      console.log(`action.totalTasksCount: ${action.totalTasksCount}\n`);
       return {
         ...state,
         tasks: action.loadedTasks,
@@ -68,6 +57,15 @@ export default function(state = initialState, action) {
       };
     }
 
+    case CHANGE_PAGE: {
+      console.log('-------REDUCER-------');
+      console.log('CHANGING PAGE');
+      console.log(`action.currPage: ${action.currPage}\n`);
+      return {
+        ...state,
+        currPage: action.currPage,
+      };
+    }
     default:
       return state;
   }

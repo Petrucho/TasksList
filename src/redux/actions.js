@@ -1,10 +1,10 @@
-import { ADD_TASK, TOGGLE_TASK, CLEAR_ALL_TASK, GET_TASKS } from './types';
+import { ADD_TASK, TOGGLE_TASK, CLEAR_ALL_TASK, GET_TASKS, CHANGE_PAGE } from './types';
 
 const addTaskAC = (curUser, curEmail, taskName) => async dispatch => {
   try {
     console.log('-----------------------');
     console.log('trying ADDING TASK - POST...');
-    console.log(`curUser: ${curUser}, curEmail: ${curEmail}, taskName: ${taskName}`);
+    console.log(`curUser: ${curUser}, curEmail: ${curEmail}, taskName: ${taskName}\n`);
 
     const response = await fetch(`https://uxcandy.com/~shapoval/test-task-backend/v2/create?developer=${curUser}`, {
       method: 'POST',
@@ -47,6 +47,9 @@ const addTaskAC = (curUser, curEmail, taskName) => async dispatch => {
 };
 
 const toggleTaskAC = index => {
+  console.log('-------ACTION-------');
+  console.log('toggleTaskAC');
+  console.log(`index: ${index}\n`);
   return {
     type: TOGGLE_TASK,
     index: index,
@@ -59,25 +62,28 @@ const clearAllAC = () => {
   };
 };
 
-const getTasks = (curUser, sortField, sortDirection, pageN) => async dispatch => {
+const getTasksAC = (curUser, sortField, sortDirection, pageN) => async dispatch => {
   try {
     console.log('-----------------------');
     console.log('trying FETCH - GET...');
     console.log(`curUser: ${curUser}, sortField: ${sortField}, sortDirection: ${sortDirection}, pageN: ${pageN}`);
 
-    const response = await fetch(`https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=${curUser}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=${curUser}&sort_field=${sortField}&sort_direction=${sortDirection}&page=${pageN}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     const myJson = await response.json();
     console.log('------------------');
-    console.log(`Object.keys(myJson): ${Object.keys(myJson)}\n`);
+    // console.log(`Object.keys(myJson): ${Object.keys(myJson)}\n`);
     //Object.keys(myJson): status,message
     console.log(`myJson.status: ${myJson.status}`);
-    console.log(`Object.keys(myJson.message): ${Object.keys(myJson.message)}`);
+    // console.log(`Object.keys(myJson.message): ${Object.keys(myJson.message)}`);
     //Object.keys(myJson.message): tasks,total_task_count
     console.log(`myJson.message.tasks.length: ${myJson.message.tasks.length}`);
     console.log(`myJson.message.total_task_count: ${myJson.message.total_task_count}\n`);
@@ -95,4 +101,19 @@ const getTasks = (curUser, sortField, sortDirection, pageN) => async dispatch =>
   }
 };
 
-export { addTaskAC, toggleTaskAC, clearAllAC, getTasks };
+const changePageAC = pageNumber => {
+  try {
+    console.log('-------ACTION-------');
+    console.log('trying CHANGING PAGE');
+    console.log(`pageNumber: ${pageNumber}\n`);
+    return {
+      type: CHANGE_PAGE,
+      currPage: pageNumber,
+    };
+  } catch (err) {
+    console.log('------ERRROR-------');
+    console.log(`Error with CHANGING PAGE: ${err}\n`);
+  }
+};
+
+export { addTaskAC, toggleTaskAC, clearAllAC, getTasksAC, changePageAC };
