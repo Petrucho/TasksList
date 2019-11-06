@@ -1,4 +1,4 @@
-import { ADD_TASK, TOGGLE_TASK, CLEAR_ALL_TASK, GET_TASKS, CHANGE_PAGE } from './types';
+import { ADD_TASK, TOGGLE_TASK, CLEAR_ALL_TASK, GET_TASKS, CHANGE_PAGE, SORT_BY_FIELD, TYPE_OF_SORT } from './types';
 
 const addTaskAC = (curUser, curEmail, taskName) => async dispatch => {
   try {
@@ -116,4 +116,34 @@ const changePageAC = pageNumber => {
   }
 };
 
-export { addTaskAC, toggleTaskAC, clearAllAC, getTasksAC, changePageAC };
+const changeSortByFieldAC = sortField => {
+  try {
+    console.log('-------ACTION-------');
+    console.log('trying sorting by field');
+    console.log(`sortField: ${sortField}\n`);
+    return {
+      type: SORT_BY_FIELD,
+      sort_field: sortField,
+    };
+  } catch (err) {
+    console.log('------ERRROR-------');
+    console.log(`Error with SORTING BY FIELD: ${err}\n`);
+  }
+};
+
+const changeTypeOfSortAC = sortDirection => {
+  try {
+    console.log('-------ACTION-------');
+    console.log('trying type of sort');
+    console.log(`sortDirection: ${sortDirection}\n`);
+    return {
+      type: TYPE_OF_SORT,
+      sort_direction: sortDirection,
+    };
+  } catch (err) {
+    console.log('------ERRROR-------');
+    console.log(`Error with TYPE OF SORT: ${err}\n`);
+  }
+};
+
+export { addTaskAC, toggleTaskAC, clearAllAC, getTasksAC, changePageAC, changeSortByFieldAC, changeTypeOfSortAC };

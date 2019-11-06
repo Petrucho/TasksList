@@ -19,7 +19,7 @@ class TasksListWithCheck extends Component {
     console.log(`Object.keys(prevProps): ${Object.keys(prevProps)}\n`);
     console.log(`prevProps.currPage: ${prevProps.currPage}`);
     console.log(`this.props.currPage: ${this.props.currPage}\n`);
-    if (prevProps.currPage !== this.props.currPage) {
+    if ((prevProps.currPage !== this.props.currPage) || (prevProps.sort_field !== this.props.sort_field)||(prevProps.sort_direction !== this.props.sort_direction)) {
       console.log('run tasksFetch function\n');
       this.tasksFetch();
     }

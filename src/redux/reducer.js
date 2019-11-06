@@ -1,4 +1,4 @@
-import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS, CHANGE_PAGE } from './types';
+import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS, CHANGE_PAGE, SORT_BY_FIELD, TYPE_OF_SORT } from './types';
 
 const initialState = {
   tasks: [],
@@ -66,6 +66,27 @@ export default function(state = initialState, action) {
         currPage: action.currPage,
       };
     }
+
+    case SORT_BY_FIELD: {
+      console.log('-------REDUCER-------');
+      console.log('SORT_BY_FIELD');
+      console.log(`action.currPage: ${action.currPage}\n`);
+      return {
+        ...state,
+        sort_field: action.sort_field,
+      };
+    }
+
+    case TYPE_OF_SORT: {
+      console.log('-------REDUCER-------');
+      console.log('TYPE_OF_SORT');
+      console.log(`action.currPage: ${action.currPage}\n`);
+      return {
+        ...state,
+        sort_direction: action.sort_direction,
+      };
+    }
+
     default:
       return state;
   }

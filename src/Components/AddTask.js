@@ -18,7 +18,9 @@ class AddTask extends Component {
   onSubmit = () => {
     console.log('------------------');
     console.log(`onSubmit\n`);
-    this.props.addTask(this.props.currUser, this.props.currEmail, this.state.title);
+    //имя “test”, email “test@test.com”, текст “test job”
+    this.props.addTask('test', 'test@test.com', 'test job');
+    // this.props.addTask(this.props.currUser, this.props.currEmail, this.state.title);
     this.setState({ title: '' });
   };
 

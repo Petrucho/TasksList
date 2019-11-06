@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { changePageAC } from '../redux/actions';
+import { changePageAC, changeSortByFieldAC, changeTypeOfSortAC } from '../redux/actions';
 
 class Footer extends Component {
   state = {};
@@ -45,6 +45,42 @@ class Footer extends Component {
     }
   };
 
+  onClickSortByField = e => {
+    console.log('------------------');
+    console.log(`some sorting button clicked: ${e.target.innerText}`);
+    switch (e.target.innerText) {
+      case 'Sort by ID':
+        this.props.changeSortByField('id');
+        break;
+      case 'Sort by username':
+        this.props.changeSortByField('username');
+        break;
+      case 'Sort by email':
+        this.props.changeSortByField('email');
+        break;
+      case 'Sort by status':
+        this.props.changeSortByField('status');
+        break;
+      default:
+        this.props.changeSortByField('id');
+    }
+  };
+
+  onClickTypeOfSort = e => {
+    console.log('------------------');
+    console.log(`some type of sort button clicked: ${e.target.innerText}`);
+    switch (e.target.innerText) {
+      case 'ASC':
+        this.props.changeTypeOfSort('asc');
+        break;
+      case 'DESC':
+        this.props.changeTypeOfSort('desc');
+        break;
+      default:
+        this.props.changeTypeOfSort('asc');
+    }
+  };
+
   render() {
     return (
       <div className="Footer">
@@ -55,25 +91,17 @@ class Footer extends Component {
           <button onClick={this.onClick}>Next page</button>
           <button onClick={this.onClick}>Last page</button>
         </div>
-        <div className="Sorting">
-          <p>
-            Sort by field
-            <input list="field" />
-          </p>
-          <datalist id="field">
-            <option>id</option>
-            <option>username</option>
-            <option>email</option>
-            <option>status</option>
-          </datalist>
-          <p>
-            Type of sort
-            <input list="type" />
-          </p>
-          <datalist id="type">
-            <option>asc</option>
-            <option>desc</option>
-          </datalist>
+        <div className="SortingField">
+          <p>Current sorting field: {this.props.sort_field}</p>
+          <button onClick={this.onClickSortByField}>Sort by ID</button>
+          <button onClick={this.onClickSortByField}>Sort by username</button>
+          <button onClick={this.onClickSortByField}>Sort by email</button>
+          <button onClick={this.onClickSortByField}>Sort by status</button>
+        </div>
+        <div className="SortingType">
+          <p>Type of sorting: {this.props.sort_direction}</p>
+          <button onClick={this.onClickTypeOfSort}>ASC</button>
+          <button onClick={this.onClickTypeOfSort}>DESC</button>
         </div>
       </div>
     );
@@ -85,12 +113,16 @@ function mapStateToProps(state) {
     currPage: state.currPage,
     totalTasksCount: state.totalTasksCount,
     pagination: state.pagination,
+    sort_field: state.sort_field,
+    sort_direction: state.sort_direction,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     changePage: pageNumber => dispatch(changePageAC(pageNumber)),
+    changeSortByField: sortField => dispatch(changeSortByFieldAC(sortField)),
+    changeTypeOfSort: sortDirection => dispatch(changeTypeOfSortAC(sortDirection)),
   };
 }
 
