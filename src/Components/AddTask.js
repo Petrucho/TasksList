@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { addTaskAC } from '../redux/actions';
 
 class AddTask extends Component {
@@ -16,11 +17,7 @@ class AddTask extends Component {
   };
 
   onSubmit = () => {
-    console.log('------------------');
-    console.log(`onSubmit\n`);
-    //имя “test”, email “test@test.com”, текст “test job”
     this.props.addTask('test', 'test@test.com', 'test job');
-    // this.props.addTask(this.props.currUser, this.props.currEmail, this.state.title);
     this.setState({ title: '' });
   };
 

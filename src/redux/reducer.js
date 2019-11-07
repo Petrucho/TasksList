@@ -1,4 +1,4 @@
-import { ADD_TASK, CLEAR_ALL_TASK, TOGGLE_TASK, GET_TASKS, CHANGE_PAGE, SORT_BY_FIELD, TYPE_OF_SORT } from './types';
+import { ADD_TASK,  GET_TASKS, CHANGE_PAGE, SORT_BY_FIELD, TYPE_OF_SORT } from './types';
 
 const initialState = {
   tasks: [],
@@ -12,10 +12,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  console.log(`----REDUCER----`);
-  console.log(`before SWITCH`);
-  console.log(`Object.keys(action): ${Object.keys(action)}`);
-  console.log(`action.type: ${action.type}`);
   switch (action.type) {
     case ADD_TASK: {
       return {
@@ -23,33 +19,7 @@ export default function(state = initialState, action) {
       };
     }
 
-    case CLEAR_ALL_TASK: {
-      return {
-        tasks: [],
-      };
-    }
-
-    case TOGGLE_TASK: {
-      const tasks = [...state.tasks];
-
-      tasks.forEach((el, index) => {
-        if (index === action.index) {
-          el.done = !el.done;
-        }
-      });
-      console.log('-------REDUCER-------');
-      console.log('TOGGLE_TASK PAGE');
-      console.log(`action.index: ${action.index}\n`);
-      return {
-        tasks: tasks,
-      };
-    }
-
     case GET_TASKS: {
-      console.log('-------REDUCER-------');
-      console.log('GET_TASKS');
-      console.log(`action.loadedTasks: ${action.loadedTasks}\n`);
-      console.log(`action.totalTasksCount: ${action.totalTasksCount}\n`);
       return {
         ...state,
         tasks: action.loadedTasks,
@@ -58,9 +28,6 @@ export default function(state = initialState, action) {
     }
 
     case CHANGE_PAGE: {
-      console.log('-------REDUCER-------');
-      console.log('CHANGING PAGE');
-      console.log(`action.currPage: ${action.currPage}\n`);
       return {
         ...state,
         currPage: action.currPage,
@@ -68,9 +35,6 @@ export default function(state = initialState, action) {
     }
 
     case SORT_BY_FIELD: {
-      console.log('-------REDUCER-------');
-      console.log('SORT_BY_FIELD');
-      console.log(`action.currPage: ${action.currPage}\n`);
       return {
         ...state,
         sort_field: action.sort_field,
@@ -78,9 +42,6 @@ export default function(state = initialState, action) {
     }
 
     case TYPE_OF_SORT: {
-      console.log('-------REDUCER-------');
-      console.log('TYPE_OF_SORT');
-      console.log(`action.currPage: ${action.currPage}\n`);
       return {
         ...state,
         sort_direction: action.sort_direction,

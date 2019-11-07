@@ -7,35 +7,21 @@ class Footer extends Component {
   state = {};
 
   onClick = e => {
-    console.log('------------------');
-    console.log(`some button clicked: ${e.target.innerText}`);
     switch (e.target.innerText) {
       case 'First page':
-        console.log('case First page');
         this.props.changePage(1);
         break;
       case 'Prev page':
-        console.log('case Prev page');
         if (this.props.currPage > 1) {
-          console.log(`this.props.currPage: ${this.props.currPage}`);
-          console.log(`this.props.currPage-1: ${this.props.currPage - 1}`);
           this.props.changePage(this.props.currPage - 1);
         }
         break;
       case 'Next page':
-        console.log('case Next page');
-        console.log(
-          `this.props.totalTasksCount / this.props.pagination: ${this.props.totalTasksCount / this.props.pagination}`,
-        );
-        console.log(`this.props.currPage + 1: ${this.props.currPage + 1}`);
-
         if (Math.ceil(this.props.totalTasksCount / this.props.pagination) >= this.props.currPage + 1) {
-          console.log('run this.props.changePage(this.props.currPage + 1)');
           this.props.changePage(this.props.currPage + 1);
         }
         break;
       case 'Last page':
-        console.log('case Last page');
         if (this.props.currPage < Math.ceil(this.props.totalTasksCount / this.props.pagination)) {
           this.props.changePage(Math.ceil(this.props.totalTasksCount / this.props.pagination));
         }
@@ -46,8 +32,6 @@ class Footer extends Component {
   };
 
   onClickSortByField = e => {
-    console.log('------------------');
-    console.log(`some sorting button clicked: ${e.target.innerText}`);
     switch (e.target.innerText) {
       case 'Sort by ID':
         this.props.changeSortByField('id');
@@ -67,8 +51,6 @@ class Footer extends Component {
   };
 
   onClickTypeOfSort = e => {
-    console.log('------------------');
-    console.log(`some type of sort button clicked: ${e.target.innerText}`);
     switch (e.target.innerText) {
       case 'ASC':
         this.props.changeTypeOfSort('asc');
