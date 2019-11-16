@@ -17,7 +17,8 @@ class AddTask extends Component {
   };
 
   onSubmit = () => {
-    this.props.addTask('test', 'test@test.com', 'test job');
+    this.props.addTask(this.props.currUser, this.props.currEmail, this.state.title);
+    // this.props.addTask('test', 'test@test.com', 'test job');
     this.setState({ title: '' });
   };
 
@@ -44,7 +45,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddTask);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask);

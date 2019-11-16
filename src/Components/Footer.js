@@ -68,6 +68,7 @@ class Footer extends Component {
       <div className="Footer">
         <div className="Buttons">
           <p>Current page {this.props.currPage}</p>
+          <p>Total pages {Math.ceil(this.props.totalTasksCount / this.props.pagination)}</p>
           <button onClick={this.onClick}>First page</button>
           <button onClick={this.onClick}>Prev page</button>
           <button onClick={this.onClick}>Next page</button>

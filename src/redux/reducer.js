@@ -1,4 +1,16 @@
-import { ADD_TASK,  GET_TASKS, CHANGE_PAGE, SORT_BY_FIELD, TYPE_OF_SORT } from './types';
+import {
+  ADD_TASK,
+  GET_TASKS,
+  CHANGE_PAGE,
+  SORT_BY_FIELD,
+  TYPE_OF_SORT,
+  SHOW_LOGIN,
+  LOG_IN,
+  LOG_OUT,
+  INPUT_USER,
+  INPUT_EMAIL,
+  INPUT_PASS,
+} from './types';
 
 const initialState = {
   tasks: [],
@@ -6,9 +18,13 @@ const initialState = {
   sort_direction: 'asc', //(asc | desc) - направление сортировки
   currPage: 1, // номер страницы для пагинации
   totalTasksCount: 0,
-  currUser: 'admin',
-  currEmail: 'example@example.com',
+  currUser: '',
+  currEmail: '',
+  currPass: '',
   pagination: 3,
+  showLogin: true,
+  loggedIn: false,
+  authToken: '',
 };
 
 export default function(state = initialState, action) {
@@ -45,6 +61,52 @@ export default function(state = initialState, action) {
       return {
         ...state,
         sort_direction: action.sort_direction,
+      };
+    }
+
+    case SHOW_LOGIN: {
+      return {
+        ...state,
+        showLogin: true,
+      };
+    }
+
+    case LOG_IN: {
+      return {
+        ...state,
+        currUser: action.userName,
+        loggedIn: true,
+        showLogin: false,
+      };
+    }
+
+    case LOG_OUT: {
+      return {
+        ...state,
+        currUser: '',
+        currEmail: '',
+        loggedIn: false,
+      };
+    }
+
+    case INPUT_USER: {
+      return {
+        ...state,
+        currUser: action.enterUserName,
+      };
+    }
+
+    case INPUT_EMAIL: {
+      return {
+        ...state,
+        currEmail: action.enterEmail,
+      };
+    }
+
+    case INPUT_PASS: {
+      return {
+        ...state,
+        currPass: action.enterPass,
       };
     }
 

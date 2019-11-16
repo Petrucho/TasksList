@@ -12,18 +12,17 @@ class TasksListWithCheck extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if ((prevProps.currPage !== this.props.currPage) || (prevProps.sort_field !== this.props.sort_field)||(prevProps.sort_direction !== this.props.sort_direction)) {
+    if (
+      prevProps.currPage !== this.props.currPage ||
+      prevProps.sort_field !== this.props.sort_field ||
+      prevProps.sort_direction !== this.props.sort_direction
+    ) {
       this.tasksFetch();
     }
   }
 
   tasksFetch() {
-    const somePromise = this.props.getTasks(
-      this.props.currUser,
-      this.props.sort_field,
-      this.props.sort_direction,
-      this.props.currPage,
-    );
+    this.props.getTasks(this.props.currUser, this.props.sort_field, this.props.sort_direction, this.props.currPage);
   }
 
   render() {
@@ -55,7 +54,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TasksListWithCheck);
+export default connect(mapStateToProps, mapDispatchToProps)(TasksListWithCheck);
